@@ -2,17 +2,20 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = 'jenkins/jenkins:lts'
-        CONTAINER_NAME = 'jenkins'
+        IMAGE_NAME = 'my-python-app'
+        CONTAINER_NAME = 'python-app'
     }
 
     stages {
         stage('Clone Repository') {
             steps {
-                git branch: 'main', url: 'https://github.com/kumaihl9/testing-cicd.git'
+                cleanWs()
+                sh 'git --version' 
+                sh 'ls -la'
+                git url: 'https://github.com/kumaihl9/testing-cicd.git', branch: 'main', credentialsId: 'test'
             }
         }
-
+        
         stage('Build Docker Image') {
             steps {
                 sh 'docker build -t $IMAGE_NAME .'
@@ -22,15 +25,16 @@ pipeline {
         stage('Stop and Remove Old Container') {
             steps {
                 sh '''
-                    docker stop $CONTAINER_NAME || true
-                    docker rm $CONTAINER_NAME || true
+                    docker-compose down || true
                 '''
             }
         }
 
         stage('Run Container') {
             steps {
-                sh 'docker run -d --name $CONTAINER_NAME -p 8000:8000 $IMAGE_NAME'
+                sh '''
+                    docker-compose up -d --build
+                '''
             }
         }
     }
