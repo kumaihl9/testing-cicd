@@ -23,7 +23,7 @@ def get_db():
 
 @app.get("/", response_class=HTMLResponse)
 def read_form(request: Request):
-    return templates.TemplateResponse("form.htl", {"request": request})
+    return templates.TemplateResponse("form.html", {"request": request})
 
 @app.post("/submit")
 def submit_form(
