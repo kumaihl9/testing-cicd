@@ -38,6 +38,7 @@ services:
       PGADMIN_DEFAULT_PASSWORD: admin
     volumes:
       - pgadmin_data:/var/lib/pgadmin
+      - /var/run/docker.sock:/var/run/docker.sock
 
 volumes:
   postgres_data:
