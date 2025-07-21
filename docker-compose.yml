@@ -39,7 +39,18 @@ services:
     volumes:
       - pgadmin_data:/var/lib/pgadmin
       - /var/run/docker.sock:/var/run/docker.sock
+      
+  jenkins:
+    build:
+      context: .
+      dockerfile: Dockerfile.jenkins
+    ports:
+      - "8080:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - jenkins_home:/var/jenkins_home
 
 volumes:
   postgres_data:
   pgadmin_data:
+  jenkins_home:
