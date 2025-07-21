@@ -2,7 +2,14 @@ FROM jenkins/jenkins:lts
 
 USER root
 
-# Install Docker CLI
-RUN apt-get update && apt-get install -y docker.io docker-compose && usermod -aG docker jenkins
+# Install Docker & Docker Compose
+RUN apt-get update && apt-get install -y docker.io docker-compose
+
+# The 'jenkins' user is created by the Jenkins base image.
+# So we now safely add it to docker group
+RUN usermod -aG docker jenkins
+
+# Make docker.sock accessible (will be mounted later)
+VOLUME /var/run/docker.sock
 
 USER jenkins
