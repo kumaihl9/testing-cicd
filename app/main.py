@@ -17,7 +17,7 @@ templates = Jinja2Templates(directory="templates")
 def get_db():
     db = SessionLocal()
     try:
-        yield db
+        yied db
     finally:
         db.close()
 
