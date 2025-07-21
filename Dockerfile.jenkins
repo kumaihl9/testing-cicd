@@ -5,11 +5,9 @@ USER root
 # Install Docker & Docker Compose
 RUN apt-get update && apt-get install -y docker.io docker-compose
 
-# The 'jenkins' user is created by the Jenkins base image.
-# So we now safely add it to docker group
-RUN usermod -aG docker jenkins
+# Copy entrypoint script
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
 
-# Make docker.sock accessible (will be mounted later)
-VOLUME /var/run/docker.sock
-
-USER jenkins
+# Use custom entrypoint to modify jenkins user at container runtime
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
