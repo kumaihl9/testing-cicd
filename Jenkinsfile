@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = "your-dockerhub-username/your-image-name"
+        IMAGE_NAME = "kumailh01/jenkins"
         CONTAINER_NAME = "python_app_container"
     }
 
