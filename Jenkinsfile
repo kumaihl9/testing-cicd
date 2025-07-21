@@ -2,8 +2,8 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = "kumailh01/jenkins"
-        CONTAINER_NAME = "python_app_container"
+        IMAGE_NAME = 'kumailh01/jenkins'
+        CONTAINER_NAME = 'jenkins_app'
     }
 
     stages {
@@ -33,15 +33,5 @@ pipeline {
                 sh 'docker run -d --name $CONTAINER_NAME -p 8000:8000 $IMAGE_NAME'
             }
         }
-
-        // Optional: Push to Docker Hub
-        // stage('Push to Docker Hub') {
-        //     steps {
-        //         withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-        //             sh "echo $PASSWORD | docker login -u $USERNAME --password-stdin"
-        //             sh "docker push $IMAGE_NAME"
-        //         }
-        //     }
-        // }
     }
 }
