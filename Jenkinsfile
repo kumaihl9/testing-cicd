@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         IMAGE_NAME = 'jenkins/jenkins:lts'
-        CONTAINER_NAME = 'jenkins_app'
+        CONTAINER_NAME = 'jenkins'
     }
 
     stages {
